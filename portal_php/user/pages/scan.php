@@ -1,0 +1,5 @@
+<?php
+if (!defined('PORTAL_VIEW_ROUTER')) { http_response_code(403); exit; }
+$eid=(int)($_GET['event']??0);$token=(string)($_GET['token']??'');title('Điểm danh bằng QR');panel('Xác nhận điểm danh');echo '<p>Quét mã QR do cán bộ hiển thị, hoặc truy cập liên kết trong mã.</p>';
+ echo '<div class="qr-scan-tools"><button type="button" id="start-scanner" class="btn">Mở camera quét QR</button><p class="muted">Hoặc dùng ứng dụng Camera trên điện thoại để mở trực tiếp liên kết trong QR. Trình duyệt cần HTTPS và quyền camera.</p></div><div id="scanner" class="scanner"></div><p id="scan-status" class="muted" role="status"></p>';
+ form_open('attendance');echo '<input id="event_id" type="hidden" name="event_id" value="'.($eid?:'').'">';inputf('Mã điểm danh','token',$token,'text','id="qr-token" required');submitf('Xác nhận điểm danh');echo '</section>';echo '<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js" defer></script><script src="assets/js/scan.js" defer></script>';

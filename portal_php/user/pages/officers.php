@@ -1,0 +1,3 @@
+<?php
+if (!defined('PORTAL_VIEW_ROUTER')) { http_response_code(403); exit; }
+title('Danh sách cán bộ Đoàn','Thông tin chức vụ và giới thiệu cán bộ.');echo '<div class="grid">';foreach(rows("SELECT id,student_id,full_name,dob,position_title,biography,avatar_path FROM users WHERE is_officer=1 ORDER BY full_name") as $o){echo '<article class="panel">'.($o['avatar_path']?'<img class="avatar" src="index.php?page=avatar&id='.(int)$o['id'].'" alt="Ảnh cán bộ">':'<div class="avatar">'.e(mb_substr($o['full_name'],0,1)).'</div>').'<h2>'.e($o['full_name']).'</h2><p>'.e($o['position_title']).'</p><small>MSSV: '.e($o['student_id']).'</small><p class="muted">Ngày sinh: '.e($o['dob']?:'Chưa công khai').'</p><p>'.e($o['biography']).'</p></article>';}echo '</div>';

@@ -1,0 +1,4 @@
+<?php
+if(!defined('PORTAL_VIEW_ROUTER'))exit;must_can($u,'feedback');
+title('Quản lý góp ý','Tiếp nhận vấn đề, phản hồi và theo dõi trạng thái.');
+foreach(rows('SELECT f.*,u.full_name,u.student_id FROM feedback_tickets f JOIN users u ON u.id=f.user_id ORDER BY (f.status="new") DESC,f.id DESC LIMIT 100') as $f){panel('#'.$f['id'].' · '.$f['subject']);echo '<p class="muted">'.e($f['full_name']).' · '.e($f['student_id']).' · '.e($f['created_at']).' · '.e($f['status']).'</p><p>'.nl2br(e($f['body'])).'</p>';form_open('feedback_reply');echo '<input type="hidden" name="id" value="'.(int)$f['id'].'"><label>Phản hồi<textarea name="reply" rows="3" required>'.e($f['admin_reply']).'</textarea></label><label>Trạng thái<select name="status">';foreach(['new'=>'Mới','processing'=>'Đang xử lý','resolved'=>'Đã giải quyết'] as $k=>$v)echo '<option value="'.$k.'" '.($f['status']===$k?'selected':'').'>'.$v.'</option>';echo '</select></label>';submitf('Lưu phản hồi');echo '</section>';}

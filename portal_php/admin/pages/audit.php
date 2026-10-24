@@ -1,0 +1,3 @@
+<?php
+if (!defined('PORTAL_VIEW_ROUTER')) { http_response_code(403); exit; }
+title('Audit logs','Nhật ký hành động thay đổi dữ liệu của quản trị và người dùng.');panel('200 hoạt động gần nhất');echo '<div class="tablewrap"><table><thead><tr><th>Thời điểm</th><th>Tác nhân</th><th>Hành động</th><th>Chi tiết</th></tr></thead><tbody>';foreach(rows('SELECT a.*,u.student_id FROM audit_logs a LEFT JOIN users u ON u.id=a.actor_id ORDER BY a.id DESC LIMIT 200') as $r){echo '<tr><td>'.e($r['created_at']).'</td><td>'.e($r['student_id']??'Hệ thống').'</td><td>'.e($r['action']).'</td><td>'.e($r['details']).'</td></tr>';}echo '</tbody></table></div></section>';

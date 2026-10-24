@@ -1,0 +1,13 @@
+# V7 test checklist (staging)
+- [ ] MariaDB schema V6 + migration V7; dữ liệu 71 sinh viên không mất, card_number vẫn NULL đến khi được admin duyệt.
+- [ ] Email sinh viên + mật khẩu ngày sinh lần đầu -> yêu cầu đổi mật khẩu & PIN.
+- [ ] Google OAuth redirect + authorization code + nonce/state hợp lệ; Gmail cá nhân bị từ chối; Workspace student được liên kết; Google không có `hd` cần OTP email; OTP sai 5 lần bị khóa; Google user đã bị liên kết sub khác bị từ chối.
+- [ ] Trang hồ sơ lưu phone, email cá nhân, quote, author, avatar; ảnh chỉ xem được nếu self/officer; các trường chính thức không cho user tự sửa.
+- [ ] Bài nộp cùng task được passed hai lần vẫn chỉ cộng 1 lượt điểm; sự kiện 1 lượt điểm danh; user ẩn leaderboard không hiện.
+- [ ] Trung tâm thông báo đánh dấu đã đọc, phản hồi góp ý admin và trạng thái.
+- [ ] Admin cấp quyền ANALYST không được sửa users/SMTP/chặn IP; SUPER_ADMIN mới cấp admin/SMTP/điều khoản.
+- [ ] Ban hành điều khoản mới buộc user xác nhận lại; mọi biểu mẫu POST có CSRF token.
+- [ ] Admin kiểm tra lưu lượng/unique IP/country, đưa IP hash/thiết bị vào danh sách chặn; gỡ chặn.
+- [ ] SMTP host/port/from/test mail; SMTP password không lộ khi xem HTML/source.
+- [ ] V6 QR HMAC 120 giây, điểm danh camera, quét hàng loạt OCR, cron OCR, duyệt thẻ thủ công hoạt động.
+- [ ] DB backup/restore, app_key không đổi, HTTPS forced, vendor not publicly accessible, xss input escaped, no public directory listing, CSP.

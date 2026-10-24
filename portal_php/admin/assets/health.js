@@ -1,0 +1,1 @@
+(()=>{const target=document.getElementById('health-qr'),out=document.getElementById('health-result');if(!target)return;try{FocusQR.render('PTIT Youth Portal | QR SELF TEST',target);out.textContent='✓ QR nội bộ được dựng thành công trên trình duyệt này.';}catch(e){out.textContent='Không tạo được QR: '+e.message;}})();

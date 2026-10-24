@@ -1,0 +1,49 @@
+/* FocusBrain v4.8.4 actual administration design system adapted to Youth Portal. */
+:root{--bf-navy:#12213f;--bf-blue:#2457a7;--bf-border:#dfe5ec;--bf-muted:#697386}
+body.focus-admin-mode{background:#f6f8fb;font-family:Inter,system-ui,sans-serif;color:#172033;font-size:13px}
+.focus-admin-mode .shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+.focus-admin-mode .sidebar{width:auto;min-width:0;height:100vh;position:sticky;top:0;background:#12213f;padding:0;display:flex;border:0;z-index:20}
+.focus-admin-mode .sidebar .brand{height:70px;margin:0;padding:0 16px;border-bottom:1px solid #ffffff18;font-size:14px;gap:10px;color:white}
+.focus-admin-mode .sidebar .brand small{font-size:10px;color:#8fa5c6}
+.focus-admin-mode .sidebar .star{width:34px;height:34px;border-radius:8px;background:#fff;color:#12213f;font-size:22px}
+.focus-admin-mode .sidebar nav{display:block;flex:1;overflow-y:auto;padding:13px 9px}
+.focus-admin-mode .sidebar nav a{color:#b8c6db;font-size:12px;font-weight:500;padding:9px 10px;border-radius:7px;margin:2px 0;display:flex;gap:9px}
+.focus-admin-mode .sidebar nav a.active{background:#23477f;color:#fff}
+.focus-admin-mode .sidebar nav a:hover{background:#172b50;color:#fff}
+.focus-admin-mode .sidebar nav .navlabel{font-size:10px;color:#6f89af;letter-spacing:.08em;padding:13px 10px 5px}
+.navicon{display:inline-block;width:20px;text-align:center;font-weight:700}
+.focus-admin-mode .account{padding:15px;border-top:1px solid #ffffff18;color:white}
+.focus-admin-mode .account b{font-size:12px}.focus-admin-mode .account small{color:#96abc9}
+.online-dot{display:inline-block;width:8px;height:8px;background:#22a06b;border-radius:50%;margin-right:8px}
+.focus-admin-mode .main{width:100%;max-width:none;margin:0;padding:0 22px 70px;min-width:0}
+.focus-admin-mode .top{height:64px;background:#fff;position:sticky;top:0;z-index:10;margin:0 -22px 20px;padding:0 22px;border-bottom:1px solid #dfe5ec;letter-spacing:0}
+.focus-admin-mode .headline{margin:15px 0 17px}.focus-admin-mode .headline h1{font-size:21px;letter-spacing:0}.focus-admin-mode .headline p{font-size:12px}
+.focus-admin-mode .panel,.focus-admin-mode .stats article{border-radius:10px;border:1px solid #dfe5ec;box-shadow:0 1px 2px #1018280a}
+.focus-admin-mode .panel{padding:16px 18px;margin:14px 0}.focus-admin-mode .panel h2{font-size:14px}
+.focus-admin-mode .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.focus-admin-mode .stats article{padding:15px}.focus-admin-mode .stats article small{font-size:10px;text-transform:uppercase;font-weight:800}
+.focus-admin-mode .stats article strong{font-family:'JetBrains Mono',monospace;font-size:22px;color:#172033}
+.focus-admin-mode .btn{background:#12213f;border-radius:8px;padding:9px 12px;font-size:12px}.focus-admin-mode .btn.secondary{background:#eef2f7;color:#374151}
+.focus-admin-mode table{font-size:11px}.focus-admin-mode td,.focus-admin-mode th{padding:10px 11px}.focus-admin-mode th{font-size:10px;text-transform:uppercase;background:#f8fafc}
+.focus-admin-mode input,.focus-admin-mode textarea,.focus-admin-mode select{border-radius:8px;font-size:12px;padding:9px 11px}
+.focus-admin-mode .status{font-size:10px}.top-left,.top-right{display:flex;gap:12px;align-items:center}.top-account{font-size:12px;color:#172033;text-transform:none;letter-spacing:0}
+.mobile-toggle{display:none;cursor:pointer;background:white;border:1px solid #cbd5e1;border-radius:7px;padding:7px 11px}.admin-filters{padding-bottom:12px;max-width:360px}
+.mini-bars{display:grid;gap:12px}.mini-bar-row{display:grid;grid-template-columns:160px minmax(90px,1fr) 40px;align-items:center;gap:15px;font-size:12px}.mini-track{background:#e8eef6;border-radius:8px;height:10px;overflow:hidden}.mini-track div{height:100%;background:#2457a7;border-radius:8px}
+.focus-user-mode .sidebar{background:#12213f}.focus-user-mode .sidebar nav a.active{background:#23477f;color:#fff}.focus-user-mode .top{letter-spacing:0}
+.focus-user-mode .stats strong{color:#2457a7}.focus-user-mode .btn{background:#2457a7}
+.focus-user-mode .panel,.focus-user-mode .stats article{border-radius:14px}
+@media(max-width:1000px){.focus-admin-mode .shell{display:block}.focus-admin-mode .sidebar,.focus-user-mode .sidebar{transform:translateX(-103%);position:fixed;top:0;left:0;bottom:0;height:100vh;width:270px;transition:transform .2s ease;z-index:100;box-shadow:10px 0 30px #12213f33}.focus-admin-mode .sidebar.open,.focus-user-mode .sidebar.open{transform:translateX(0)}.focus-admin-mode .sidebar nav,.focus-user-mode .sidebar nav{display:block;overflow-y:auto;max-height:calc(100vh - 160px);white-space:normal}.focus-admin-mode .sidebar nav a,.focus-user-mode .sidebar nav a{color:#bdcee5}.focus-admin-mode .sidebar .navlabel,.focus-user-mode .sidebar .navlabel{display:block}.focus-admin-mode .main,.focus-user-mode .main{width:100%;padding:0 15px 60px}.focus-admin-mode .top,.focus-user-mode .top{margin:0 -15px 18px;padding:0 15px}.mobile-toggle{display:block}.focus-admin-mode .stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.focus-admin-mode .stats{grid-template-columns:repeat(2,minmax(0,1fr))}.mini-bar-row{grid-template-columns:100px minmax(45px,1fr) 35px}.top-account{display:none}.focus-admin-mode .panel{padding:14px 12px}.focus-admin-mode .headline h1{font-size:20px}}
+/* V6 FocusBrain Operations Center */
+.ops-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:12px;margin:18px 0}
+.ops-kpi{border:1px solid #dfe5ec;background:#fff;border-radius:11px;padding:17px;display:grid;gap:4px}
+.ops-kpi b{font:700 28px/1.2 'JetBrains Mono',monospace;color:#182b47}
+.ops-kpi small{color:#77859a;font-size:11px;font-weight:700;letter-spacing:.02em}
+.ops-toolbar{display:flex;gap:11px;flex-wrap:wrap;align-items:center;margin:18px 0}
+.ops-toolbar .btn:disabled{opacity:.5;cursor:not-allowed}
+.ops-activity{max-height:215px;overflow:auto;font:12px/1.6 monospace;background:#f7f9fc;border:1px solid #e0e5ed;padding:7px 16px;border-radius:8px}
+.ops-activity:empty::before{content:'Chưa có thao tác quét OCR';color:#8190a6}
+.ops-activity p{padding:7px 0;margin:0;border-bottom:1px solid #e9edf5}
+#qrcode canvas{image-rendering:pixelated;display:block;border:1px solid #dfe5ec;border-radius:8px;width:min(100%,425px);height:auto;background:#fff}
+#qr-fallback{word-break:break-all;overflow-wrap:anywhere;font-size:11px}
+.qr-scan-tools{display:flex;flex-wrap:wrap;align-items:center;gap:15px}.qr-scan-tools p{max-width:500px}

@@ -1,0 +1,4 @@
+<?php
+if (!defined('PORTAL_VIEW_ROUTER')) { http_response_code(403); exit; }
+title('Module Control','Quản lý khả năng hiển thị phân hệ của user, theo cơ chế điều hành của FocusBrain.');
+ panel('Bật/tắt phân hệ');foreach([ 'tasks'=>'Nhiệm vụ & minh chứng','events'=>'Sự kiện & điểm danh','elections'=>'Bầu cử','card'=>'Thẻ đoàn viên','officers'=>'Danh sách cán bộ','competitions'=>'Cuộc thi','notifications'=>'Thông báo','profile'=>'Trang cá nhân','leaderboard'=>'Bảng xếp hạng','feedback'=>'Trung tâm góp ý'] as $slug=>$name){$state=module_enabled($slug);echo '<div class="line"><span><b>'.e($name).'</b><small>Module: '.e($slug).'</small></span>';form_open('toggle_module');echo '<input type="hidden" name="module" value="'.e($slug).'"><input type="hidden" name="enabled" value="'.($state?'0':'1').'"><button class="btn btn-small '.($state?'secondary':'').'">'.($state?'Đang bật · Tắt':'Đang tắt · Bật').'</button></form></div>';}echo '</section>';

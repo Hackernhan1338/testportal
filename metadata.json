@@ -1,0 +1,6 @@
+{
+  "name": "PTIT Youth Portal - FocusBrain Architecture",
+  "description": "Cổng thông tin Quản lý Công tác Đoàn - Hội PTIT HCM theo chuẩn kiến trúc và thiết kế FocusBrain v4.8.4",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

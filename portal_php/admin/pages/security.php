@@ -1,0 +1,6 @@
+<?php
+if (!defined('PORTAL_VIEW_ROUTER')) { http_response_code(403); exit; }
+title('Security Center','Quan sát trạng thái tài khoản và yêu cầu bảo vệ thông tin.');
+ $pending=one('SELECT COUNT(*) n FROM users WHERE pass_hash IS NULL');$forced=one('SELECT COUNT(*) n FROM users WHERE must_change=1');$norem=one('SELECT COUNT(*) n FROM submissions WHERE status="needs_review"');
+ echo '<div class="stats"><article><small>Chưa cấp mật khẩu</small><strong>'.(int)$pending['n'].'</strong></article><article><small>Chưa đổi mật khẩu</small><strong>'.(int)$forced['n'].'</strong></article><article><small>Ảnh cần duyệt</small><strong>'.(int)$norem['n'].'</strong></article></div>';
+ panel('Chính sách hiện hành');echo '<div class="line"><b>PIN</b><span>6 chữ số, lưu bằng password_hash</span></div><div class="line"><b>Mật khẩu mới</b><span>Tối thiểu 12 ký tự</span></div><div class="line"><b>Đăng nhập</b><span>Email sinh viên</span></div><div class="line"><b>QR</b><span>Chữ ký HMAC, hiệu lực 120 giây</span></div><div class="line"><b>Ảnh thẻ</b><span>Duyệt thủ công trước khi ghi số thẻ</span></div><p class="muted">Đây là bảng giám sát, không thay thế kiểm thử xâm nhập hoặc đánh giá an toàn vận hành.</p></section>';

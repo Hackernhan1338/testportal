@@ -1,0 +1,5 @@
+<?php
+if(!defined('PORTAL_VIEW_ROUTER'))exit;must_can($u,'security');
+title('Chặn IP / thiết bị','IP được băm HMAC; thiết bị dùng cookie định danh ngẫu nhiên, không phải fingerprint vĩnh viễn.');
+panel('Thêm hạn chế');form_open('add_block');echo '<label>Kiểu<select name="kind"><option value="ip">IP</option><option value="device">Mã băm thiết bị (64 ký tự)</option><option value="ip_hash">Mã băm IP từ Web Visits</option></select></label>';inputf('Địa chỉ IP hoặc device hash','identity','','text','required');inputf('Lý do','reason','','text','required');inputf('Hạn chót (để trống: vô thời hạn)','expires_at','','datetime-local');submitf('Thêm vào danh sách chặn');echo '</section>';
+panel('Danh sách bị chặn');foreach(rows('SELECT * FROM access_blocks ORDER BY id DESC LIMIT 100') as $b){echo '<div class="line"><span><b>'.e($b['kind']).' · '.e(substr($b['identity_hash'],0,20)).'…</b><small>'.e($b['reason']).' · '.e($b['expires_at']?:'Vô thời hạn').'</small></span>';form_open('remove_block');echo '<input type="hidden" name="id" value="'.(int)$b['id'].'">';submitf('Gỡ chặn');echo '</div>';}echo '</section>';

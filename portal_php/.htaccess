@@ -1,0 +1,26 @@
+# PTIT Youth Portal - FocusBrain Architecture .htaccess
+Options -Indexes -MultiViews
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Protect sensitive files & folders
+<FilesMatch "^\.(env|git|htaccess)|(config\.php|\.sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block PHP execution in upload directory
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^storage/uploads/.*\.php$ - [F,L]
+    RewriteRule ^database/.* - [F,L]
+</IfModule>
+
+# Prevent viewing directory listings
+DirectoryIndex index.php

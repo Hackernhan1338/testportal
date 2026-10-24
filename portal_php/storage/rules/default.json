@@ -1,0 +1,4 @@
+{
+ "required": ["full_name", "date_of_birth", "position", "join_date", "card_number", "activity_unit"],
+ "optional": ["join_place", "issue_place"]
+}

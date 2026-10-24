@@ -1,0 +1,44 @@
+CREATE TABLE IF NOT EXISTS users (
+ id INT AUTO_INCREMENT PRIMARY KEY, student_id VARCHAR(24) UNIQUE NOT NULL, email VARCHAR(191) UNIQUE NOT NULL,
+ full_name VARCHAR(191) NOT NULL, dob DATE NULL, pass_hash VARCHAR(255) NULL, pin_hash VARCHAR(255) NULL,
+ must_change TINYINT(1) NOT NULL DEFAULT 1, role ENUM('user','admin') NOT NULL DEFAULT 'user',
+ membership ENUM('member','not_joined','local','pending','transferred','unknown') NOT NULL DEFAULT 'unknown',
+ transfer_status VARCHAR(100) DEFAULT NULL, class_name VARCHAR(100) DEFAULT NULL, position_title VARCHAR(120) DEFAULT NULL,
+ card_number VARCHAR(40) DEFAULT NULL, card_verified_at DATETIME NULL, card_verified_by INT NULL, is_officer TINYINT(1) NOT NULL DEFAULT 0, joined_date DATE DEFAULT NULL, activity_unit VARCHAR(191) DEFAULT NULL,
+ avatar_path VARCHAR(255) DEFAULT NULL, card_path VARCHAR(255) DEFAULT NULL, biography TEXT NULL,
+ notes TEXT NULL, active TINYINT(1) NOT NULL DEFAULT 1, created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS tasks (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, description TEXT, type ENUM('photo','ack') DEFAULT 'photo', category ENUM('general','competition','card') NOT NULL DEFAULT 'general', required_fields JSON NULL, due_at DATETIME NULL, active TINYINT(1) DEFAULT 1, created_at DATETIME DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS submissions (id BIGINT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, task_id INT NOT NULL, image_path VARCHAR(255) NULL, extracted JSON NULL, status ENUM('pending','passed','needs_review','rejected') DEFAULT 'pending', feedback TEXT NULL, submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP, reviewed_at DATETIME NULL, reviewer_id INT NULL, INDEX(user_id,task_id), FOREIGN KEY (user_id) REFERENCES users(id), FOREIGN KEY (task_id) REFERENCES tasks(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS announcements (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, body TEXT NOT NULL, kind ENUM('general','security','required') DEFAULT 'general', created_at DATETIME DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS events (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, description TEXT, start_at DATETIME NOT NULL, end_at DATETIME NOT NULL, active TINYINT(1) DEFAULT 1) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS attendances (id BIGINT AUTO_INCREMENT PRIMARY KEY, event_id INT NOT NULL, user_id INT NOT NULL, checked_at DATETIME DEFAULT CURRENT_TIMESTAMP, method ENUM('qr','manual') NOT NULL, UNIQUE KEY unique_event_user (event_id,user_id), FOREIGN KEY(event_id) REFERENCES events(id), FOREIGN KEY(user_id) REFERENCES users(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS elections (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, description TEXT, starts_at DATETIME NOT NULL, ends_at DATETIME NOT NULL, seats INT NOT NULL DEFAULT 1, active TINYINT(1) DEFAULT 1) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS candidates (id INT AUTO_INCREMENT PRIMARY KEY, election_id INT NOT NULL, user_id INT NOT NULL, UNIQUE KEY (election_id,user_id), FOREIGN KEY(election_id) REFERENCES elections(id), FOREIGN KEY(user_id) REFERENCES users(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS voters (election_id INT NOT NULL, user_id INT NOT NULL, voted_at DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(election_id,user_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS ballots (id BIGINT AUTO_INCREMENT PRIMARY KEY, election_id INT NOT NULL, candidate_id INT NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP, INDEX(election_id,candidate_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS password_resets (id BIGINT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, otp_hash VARCHAR(255) NOT NULL, expires_at DATETIME NOT NULL, attempts INT DEFAULT 0, consumed TINYINT DEFAULT 0, created_at DATETIME DEFAULT CURRENT_TIMESTAMP, INDEX(user_id,created_at)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS rate_limits (bucket VARCHAR(191) PRIMARY KEY, count INT NOT NULL, reset_at DATETIME NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS verifier_rules (id INT AUTO_INCREMENT PRIMARY KEY, filename VARCHAR(255) NOT NULL, config JSON NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS audit_logs (id BIGINT AUTO_INCREMENT PRIMARY KEY, actor_id INT NULL, action VARCHAR(100), details TEXT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS module_settings (module_key VARCHAR(64) PRIMARY KEY, enabled TINYINT(1) NOT NULL DEFAULT 1, updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- OCR async queue (v6)
+-- V6 OCR queue: import after schema.sql (or upgrade an existing V5 database).
+CREATE TABLE IF NOT EXISTS ocr_jobs (
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ submission_id BIGINT NOT NULL,
+ status ENUM('queued','processing','done','failed','skipped') NOT NULL DEFAULT 'queued',
+ attempts TINYINT UNSIGNED NOT NULL DEFAULT 0,
+ lease_token CHAR(32) DEFAULT NULL,
+ last_error VARCHAR(500) NULL,
+ claimed_at DATETIME NULL,
+ next_attempt_at DATETIME NULL,
+ processed_at DATETIME NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE KEY uq_ocr_submission (submission_id),
+ UNIQUE KEY uq_ocr_lease (lease_token),
+ KEY idx_ocr_status_next (status,next_attempt_at,id),
+ CONSTRAINT fk_ocr_submission FOREIGN KEY (submission_id) REFERENCES submissions(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

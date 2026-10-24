@@ -1,0 +1,54 @@
+/* Brain Focus v4.5.4 mobile composition — tuned to classic mobile reference. */
+@media (max-width: 767px){
+  html,body{max-width:100%;overflow-x:hidden}
+  body{background:#f8fafc}
+  header{padding:.55rem .7rem!important;min-height:68px}
+  header h1{font-size:1.05rem!important}
+  header p{font-size:.72rem!important;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis}
+  header .w-8,header .sm\:w-9{width:2.8rem!important;height:2.8rem!important;border-radius:1rem!important}
+  #quick-sound-btn{width:42px;height:38px;padding:.4rem!important;justify-content:center}
+  header a[title="Điểm Xếp Hạng"],header a[title="Điểm BFS"],header a[title="Tổng Điểm"]{padding:.45rem .6rem!important;border-radius:.85rem!important}
+  header a[title="Tổng Điểm"],header a[title="Góp ý & Báo lỗi"],header a[title="Cổng Quản Trị Viên"],header a[title="Hồ Sơ Của Bạn"],header a[title="Khóa màn hình"]{display:none!important}
+  header button[title*="Deep Focus"]{display:none!important}
+  .bf-streak-strip{font-size:.78rem}
+  .bf-mobile-top-tabs{display:flex!important;overflow-x:auto!important;white-space:nowrap;scrollbar-width:none;padding:.35rem .55rem!important;gap:.25rem!important}
+  .bf-mobile-top-tabs::-webkit-scrollbar{display:none}
+  .bf-mobile-top-tabs a,.bf-mobile-top-tabs button{font-size:.78rem!important;padding:.55rem .8rem!important;border-radius:.8rem!important}
+  main{padding:.65rem .65rem 6.4rem!important}
+  .glass-card,.glass-card-light{border-radius:1.15rem!important}
+  #tab-leaderboard{max-width:100%!important}
+  .bf-leaderboard-hero{border-radius:1.8rem!important;padding:1.7rem 1rem!important}
+  .bf-leaderboard-hero h2{font-size:1.45rem!important;line-height:1.2}
+  .bf-leaderboard-hero p{font-size:.95rem!important;line-height:1.45}
+  .bf-my-rank-strip{font-size:.9rem!important;padding:.75rem .9rem!important;border-radius:1.15rem!important;overflow:hidden}
+  .bf-my-rank-strip>div{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bf-podium{display:grid!important;grid-template-columns:1fr 1.12fr 1fr!important;gap:.55rem!important;align-items:end!important;padding-top:.35rem!important}
+  .bf-podium-card{padding:.7rem .45rem!important;border-radius:1.25rem!important;min-width:0!important}
+  .bf-podium-card.rank-1{min-height:310px!important}
+  .bf-podium-card.rank-2,.bf-podium-card.rank-3{min-height:255px!important}
+  .bf-podium-card h3{font-size:.9rem!important;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bf-podium-card .school{font-size:.68rem!important;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bf-podium-card .score{font-size:1.05rem!important}
+  .bf-podium-card .breakdown{font-size:.66rem!important;line-height:1.45}
+  .bf-podium-card .rank-block{padding:2.3rem .2rem!important;font-size:1.55rem!important;border-radius:1.05rem 1.05rem 0 0!important}
+  .bf-leaderboard-filter{padding:.75rem!important}
+  .bf-leaderboard-filter .bf-filter-search{width:100%!important;max-width:none!important}
+  .bf-leaderboard-filter .bf-filter-meta{width:100%;display:flex;align-items:center;justify-content:space-between;gap:.7rem}
+  .bf-leaderboard-row{padding:.9rem .75rem!important}
+  .bf-leaderboard-row .bf-row-school{font-size:.68rem!important}
+  .bf-leaderboard-row .bf-row-breakdown{font-size:.65rem!important}
+  .bf-leaderboard-row .bf-row-total{font-size:.95rem!important}
+  .bf-profile-head{padding:1rem!important}
+  .bf-profile-head .profile-avatar{width:3.8rem!important;height:3.8rem!important;border-radius:1.1rem!important}
+  .bf-profile-head h2{font-size:1.15rem!important}
+  .bf-profile-actions{grid-template-columns:1fr 1fr!important;width:100%!important}
+  .bf-bfs-level-card{padding:1rem!important;border-radius:1.2rem!important}
+  .bf-bfs-level-card .level-head{align-items:flex-start!important}
+  .bf-reminder-time{font-size:1.15rem!important;padding:.55rem .7rem!important}
+  nav.fixed.bottom-0{padding:.35rem .25rem calc(.35rem + env(safe-area-inset-bottom))!important;background:rgba(255,255,255,.97)!important;backdrop-filter:blur(12px);box-shadow:0 -6px 18px rgba(15,23,42,.08)!important}
+  nav.fixed.bottom-0 .grid{gap:0!important}
+  nav.fixed.bottom-0 a{font-size:.68rem!important;padding:.35rem .1rem!important}
+  nav.fixed.bottom-0 a span:first-child{font-size:1.45rem!important}
+}
+
+@media (max-width:767px){nav.fixed.bottom-0 a.text-slate-900{background:#f8fafc;border-radius:.85rem;box-shadow:0 1px 4px rgba(15,23,42,.08)}}
